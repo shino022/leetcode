@@ -7,4 +7,4 @@ If you are also using this repository to prepare for coding interviews or just w
 
 If you have a better solution or find a mistake in my solution, please feel free to open a pull request.
 
-Happy interview prep!
+Good luck!
