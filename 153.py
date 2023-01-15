@@ -1,11 +1,10 @@
 """
-if it's not rotated, it's always nums[l] < nums[r] so you can return nums[l]
-else if it's rotated, we have 2 cases
-  we can see it as 2 portions
-  1. if nums[m] > nums[r] or nums[l] < nums[m]
-    in either case, pivot is in the right portion
-  2. if nums[m] < nums[r] or nums[l] > nums[m]
-    in either case, pivot is in the left portion
+This code uses a binary search approach to find the pivot element in a rotated array.
+If the array is not rotated, nums[l] will always be less than nums[r], so we can return nums[l] as the pivot.
+If the array is rotated, we have two cases:
+  1. If nums[m] > nums[r] or nums[l] < nums[m], the pivot is in the right portion of the array.
+  2. If nums[m] < nums[r] or nums[l] > nums[m], the pivot is in the left portion of the array.
+This algorithm will find the pivot element of a rotated array in O(log n) time complexity and O(1) of memory.
 """
 class Solution:
     def findMin(self, nums: List[int]) -> int:
