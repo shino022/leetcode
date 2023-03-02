@@ -5,7 +5,7 @@ The algorithm iterates through s and t using two indices i and j, respectively. 
 
   1. If s[i] is equal to t[j], there are two sub-cases:
     a. We can include s[i] in the subsequence and move to the next character in both s and t.
-    b. We can exclude s[i] from the subsequence and only move to the next character in s. However, we also need to check if there is a potential match between s[i+1:] and t[j:] by deleting s[i].
+    b. We can exclude s[i] from the subsequence and only move to the next character in s. 
     We cache the sum of the returned values from both sub-cases.
 
   2. If s[i] is not equal to t[j], we can only exclude s[i] from the subsequence and move to the next character in s. We cache the returned value
