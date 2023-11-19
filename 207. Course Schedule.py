@@ -1,50 +1,45 @@
-"""
-Topological sort algo
-Initialize a map crs to pre
-dfs(crs)
-  Basecases
-    if visited, return False to prevent looping
-    if there's no prerequisites, return True
-
-  mark it visited
-
-  for pre in prerequisites 
-    if any loop found by recursive calling dfs(pre), return false
-    
-  if no loop detected 
-    mark it unvisited
-    remove all prerequisites so that it can return true, next time visited
-    return true
-
-run dfs for all crs bc some node can be disconnected
-  if any dfs(crs) false return false
-if no false, return true
-"""
 class Solution:
+  """
+  dfs with a adjacency list (index: course, value: a list of prerequisites)
+  start from the all the possible nodes, cua we dont know where to start, and there can be multiple groups 
+  dfs:
+    Basecase: 1. nomore prereqs -> true, 2. already visited(to detect cycle) -> false
+    Update visited to True
+    Traverse all neighbor: once a Flase detected -> return Flase
+    At this point, all prereq can be finished -> 
+      1. update visited to False
+      2. adj to empty (DP: nextime it's visited just return True)
+      3. return True  
+  """
   def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-    crsToPre = { i: [] for i in range(numCourses) }
-    visited = set()
-    for crs, pre in prerequisites:
-      crsToPre[crs].append(pre)
-
-    def dfs(crs):
-      if crs in visited: 
-        return False
-      if crsToPre[crs] == []: 
+    adj = [ [] for i in range(numCourses) ]
+    print(adj, numCourses, prerequisites)
+    visited = set() # only used for the cycle detection
+    for c, p in prerequisites:
+      adj[c].append(p)
+    
+    def dfs(i):
+      # basecase: 1. nomore prereqs -> true, 2. already visited(to detect cycle) -> false
+      if adj[i] == []:
         return True
-
-      visited.add(crs)
-
-      for pre in crsToPre[crs]:
+      if i in visited:
+        return False
+      # update visited to True
+      visited.add(i)
+      # traverse all neighbor: once a Flase detected -> return Flase
+      for pre in adj[i]:
         if not dfs(pre):
           return False
       
-      visited.remove(crs)
-      crsToPre[crs] = []
-
+      # at this point, all prereq can be finished -> 
+      #   1. update visited to False
+      #   2. adj to empty (DP: nextime it's visited just return True)
+      #   3. return True
+      visited.remove(i)
+      adj[i] = []
       return True
-
-    for crs in range(numCourses):
-      if not dfs(crs):
+    for pre in range(numCourses):
+      if not dfs(pre):
         return False
     return True
+      
